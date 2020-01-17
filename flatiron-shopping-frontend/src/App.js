@@ -1,26 +1,56 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Nav from './Nav';
+import ItemContainer from './ItemContainer';
 
-function App() {
+
+class App extends React.Component {
+
+state={
+  items: [],
+  selectedItems: []
+}
+
+componentDidMount= () => {
+  fetch("http://localhost:3000/items")
+  .then(r => r.json())
+  .then(itemsArray => {
+    this.setState({
+      items: itemsArray
+    })
+  })
+}
+
+buttonToAddToCartClicked= (item) => {
+  this.setState({
+    selectedItems: [...this.state.selectedItems, item]
+  })
+}
+
+buttonToRemoveFromCart= (item) => {
+
+  let arrayWithItemRemoved= this.state.selectedItems.filter(data => {
+    return data !== item
+  })
+
+
+  this.setState({
+    selectedItems: arrayWithItemRemoved
+  })
+}
+
+
+
+render() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+      <Nav selectedItems={this.state.selectedItems} buttonToRemoveFromCart={this.buttonToRemoveFromCart}/>
+      <ItemContainer items={this.state.items} buttonToAddToCartClicked={this.state.buttonToAddToCartClicked}/>
+     
     </div>
   );
 }
+}
+
 
 export default App;

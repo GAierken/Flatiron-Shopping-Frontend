@@ -7,12 +7,12 @@ expandThisItem= () => {
 
 const {selectedToExpand, returnToItemList, buttonToAddToCartClicked} = this.props
 
-    return <div>
+    return <div className= "item-display">
         <h3>{selectedToExpand.name} </h3>
-        <img src={selectedToExpand.image} alt={selectedToExpand.name}/>
+        <img className="item-display-image" src={selectedToExpand.image} alt={selectedToExpand.name}/>
         <p>{selectedToExpand.price} </p>
         <p>{selectedToExpand.description}</p>
-        <button onClick={()=> {buttonToAddToCartClicked(selectedToExpand)}}>Add to Cart</button>
+        <button className="item-display-button" onClick={()=> {buttonToAddToCartClicked(selectedToExpand)}}>Add to Cart</button>
         <button onClick={returnToItemList}>Return to Inventory</button>
     </div>
 }

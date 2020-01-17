@@ -11,17 +11,12 @@ state={
   
 }
 
-listTheItems= () => {
-    return this.props.items.map(item => {
-        return <ItemList item={item} itemClickedOn={this.ItemClickedOn} buttonToAddToCartClicked={this.props.buttonToAddToCartClicked}/>
-    })
-}
-
 itemClickedOn= (item) => {
     this.setState({
         expandItem: !this.state.expandItem,
         selectedToExpand: item
     })
+    console.log("clicked")
 }
 
 returnToItemList= () => {
@@ -31,12 +26,19 @@ returnToItemList= () => {
     })
 }
 
+listTheItems= () => {
+    return this.props.items.map(item => {
+        return <ItemList item={item} itemClickedOn={this.itemClickedOn} buttonToAddToCartClicked={this.props.buttonToAddToCartClicked}/>
+    })
+}
+
+
+
 
 render() {
   return (
-    <div >
-    
-    { this.state.expandItem ? <Item selectedToExpand={this.state.selectedToExpand} returnToItemList={this.returnToItemList} buttonToAddToCartClicked={this.props.buttonToAddToCartClicked}/> : this.listTheItems()}
+    <div>
+    {this.state.expandItem ? <Item selectedToExpand={this.state.selectedToExpand} returnToItemList={this.returnToItemList} buttonToAddToCartClicked={this.props.buttonToAddToCartClicked}/> : this.listTheItems()}
     </div>
   );
 }

@@ -1,0 +1,37 @@
+.item-div{
+    display: flex;
+}
+
+.item-list-image {
+    width: 25%;
+    
+    
+}
+
+.item-list-button {
+    width: 15%;
+    height: 15%;
+}
+
+
+
+.item-container {
+    display: flex;
+    width: 100%;
+}
+
+.item-display {
+    display: flex;
+
+}
+
+.item-display-image {
+    width: 25%;
+
+}
+
+.item-display-button {
+width: 15%;
+height: 15%;
+
+}

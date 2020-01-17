@@ -11,7 +11,7 @@ itemListing= () => {
     const {item, itemClickedOn, buttonToAddToCartClicked} = this.props
 
     return <div>
-        <img onClick={()=> itemClickedOn(item)} src={item.url} alt={item.name}/>
+        <img onClick={()=> itemClickedOn(item)} src={item.image} alt={item.name}/>
         <button onClick={()=> {buttonToAddToCartClicked(item)}}>Add to Cart</button>
 
     </div>

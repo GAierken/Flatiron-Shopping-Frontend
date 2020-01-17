@@ -10,7 +10,7 @@ showCartItem= () => {
 
     return <div>
     <h3>{item.name}</h3>
-    <img src={item.url} alt={item.name} />
+    <img src={item.image} alt={item.name} />
     <p>{item.price}</p>
     <button onClick={()=> buttonToRemoveFromCart(item)}>Remove from Cart</button>
     </div>

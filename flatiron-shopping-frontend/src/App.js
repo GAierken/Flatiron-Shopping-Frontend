@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
 import Nav from './Nav';
-import ItemContainer from './ItemContainer';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Cart from './Cart';
 import Login from './Login';
 import Signup from './Signup';
+import Homepage from './Homepage';
 
 
 class App extends React.Component {
@@ -46,23 +46,18 @@ buttonToRemoveFromCart= (item) => {
 
 
 render() {
-  console.log(this.state.selectedItems)
   return (
     <div >
       <Router>
           <Nav /> 
           <Switch>
-          <Route exact path="/cart" render={(renderProps) => <Cart {...renderProps} selectedItems={this.state.selectedItems} buttonToRemoveFromCart={this.buttonToRemoveFromCart}/>} />
+          <Route exact path="/cart" render={(renderProps) => <div className= "main-item-container"> <Cart {...renderProps} selectedItems={this.state.selectedItems} buttonToRemoveFromCart={this.buttonToRemoveFromCart}/> </div> } />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />    
+          <Route exact path="/signup" component={Signup} /> 
+          <Route exact path="/" render={(renderProps) => <Homepage {...renderProps} buttonToAddToCartClicked={this.buttonToAddToCartClicked} items={this.state.items}/> }   />
           </Switch>
         </Router>
-        <h1>Flatiron Shopping App</h1>
-        <br></br>
-        <div className= "item-container">
-      <ItemContainer items={this.state.items} buttonToAddToCartClicked={this.buttonToAddToCartClicked}/>
-     </div>
-    </div>
+        </div>
   );
 }
 }

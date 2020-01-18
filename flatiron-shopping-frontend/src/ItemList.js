@@ -1,19 +1,19 @@
 import React from 'react';
 
 
+
 class ItemList extends React.Component {
-
-
-   
 
 itemListing= () => {
 
-    const {item, buttonToAddToCartClicked} = this.props
+    const {item} = this.props
 
-    return <div className= "item-div">
+    return <div className="item-div">
+  
         <img className= "item-list-image" onClick={()=> this.props.itemClickedOn(item)} src={item.image} alt={item.name}/>
-        <button className= "item-list-button" onClick={()=> buttonToAddToCartClicked(item)}>Add to Cart</button>
-
+          <br></br>
+        <button className= "item-list-button" onClick={()=> this.props.buttonToAddToCartClicked(item)}>Add to Cart</button>
+          <br></br>
     </div>
 }
 
@@ -21,10 +21,7 @@ itemListing= () => {
 
 render() {
   return (
-    <div >
-        {this.itemListing()}
-     
-    </div>
+    this.itemListing()
   );
 }
 }

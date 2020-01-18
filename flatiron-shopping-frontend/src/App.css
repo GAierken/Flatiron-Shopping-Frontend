@@ -1,37 +1,82 @@
 .item-div{
-    display: flex;
+    display: inline-block;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 15em;
+    height: 20em;
+    box-sizing: border-box;
+    border:.10em solid grey;
+    border-radius: .5em;
+    margin: 1em;
+    padding: 1em;
+    box-sizing: border-box;
+    opacity: 1;
+    text-align: center;
 }
 
 .item-list-image {
-    width: 25%;
-    
-    
+    display: inline-block;
+    width: 12em;
+    height: 15em;
+    margin: .1em;
+    padding: auto;
+   vertical-align: middle;
+}
+
+.item-list-name {
+    display: inline-block;
+    text-align: center;
+    margin: .1em;
+    padding: auto;
+   vertical-align: middle;
+
+}
+
+.item-list-price {
+    display: inline-block;
+    text-align: center;
+    margin: .1em;
+    padding: auto;
+   vertical-align: middle;
 }
 
 .item-list-button {
-    width: 15%;
-    height: 15%;
-}
-
-
-
-.item-container {
-    display: flex;
-    width: 100%;
-}
-
-.item-display {
-    display: flex;
-
+    display: inline-block;
+    width: 7em;
+    height: 3em;
+    vertical-align: middle;
 }
 
 .item-display-image {
-    width: 25%;
-
+    display: inline-block;
+    width: 15em;
+    height: 18em;
 }
 
 .item-display-button {
-width: 15%;
-height: 15%;
-
+    display: inline-block;
+    width: 7em;
+    height: 3em;
+    vertical-align: middle;
+    margin: 1em;
 }
+
+.main-item-container {
+    display: block;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: center;
+    width: 80%;
+    height: 100%;
+    margin: auto;
+    padding: auto
+}
+
+.shopping-app-h1 {
+    color: darkgray;
+    text-align: center;
+}
+

@@ -6,7 +6,7 @@ const link = {
     width: "100%",
     padding: '1em',
     margin: '0em 0em 0em',
-    background: 'yellow',
+    background: 'whitesmoke',
     textDecoration: 'none',
     color: 'black',
   }
@@ -16,12 +16,12 @@ const link = {
     render() {
       return (
         <div>
-          <NavLink
+          <NavLink className="nav-bar"
             to="/"
             exact
             style={link}
             activeStyle={{
-              background: 'orange',
+              background: 'gainsboro',
             }}
           >Home</NavLink>
           <NavLink 
@@ -29,21 +29,21 @@ const link = {
           exact
           style={link}
           activeStyle={{
-            background: 'orange',
+            background: 'gainsboro',
           }}> Sign Up</NavLink>
           <NavLink 
           to="/login"
           exact
           style={link}
           activeStyle={{
-            background: 'orange'
+            background: 'gainsboro'
           }}>Log In</NavLink>
           <NavLink
             to="/cart"
             exact
             style={link}
             activeStyle={{
-              background: 'orange',
+              background: 'gainsboro',
             }}
           >Cart</NavLink>
         

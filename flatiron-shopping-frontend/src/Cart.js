@@ -19,10 +19,11 @@ export default class Cart extends React.Component{
     render() {
         return (
             <div>
-                {this.displayCart}
-
+                <br></br>
+                <h1 className="shopping-app-h1">Shopping Cart</h1>
+                <br></br>
+            {this.displayCart()}
             </div>
-
         )
     }
 }

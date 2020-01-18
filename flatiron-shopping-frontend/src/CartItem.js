@@ -8,11 +8,13 @@ showCartItem= () => {
 
     const {item, buttonToRemoveFromCart} = this.props
 
-    return <div>
-    <h3>{item.name}</h3>
-    <img src={item.image} alt={item.name} />
-    <p>{item.price}</p>
-    <button onClick={()=> buttonToRemoveFromCart(item)}>Remove from Cart</button>
+    return <div className= "item-div">
+        <br></br>
+    <img className= "item-list-image" src={item.image} alt={item.name} />
+    <p className="item-list-name">{item.name}</p>
+    <p className="item-list-price"> {item.price}</p>
+    <br></br>
+    <button className="item-list-button" onClick={()=> buttonToRemoveFromCart(item)}>Remove from Cart</button>
     </div>
 }
 
@@ -23,10 +25,7 @@ showCartItem= () => {
 
     render() {
         return(
-            <div>
-                {this.showCartItem}
-
-            </div>
+                this.showCartItem()
         )
     }
 }

@@ -5,44 +5,25 @@ import Item from './Item';
 
 class ItemContainer extends React.Component {
 
-state={
-    expandItem: false,
-    selectedToExpand: []
-}
-
-itemClickedOn= (item) => {
-    this.setState({
-        expandItem: !this.state.expandItem,
-        selectedToExpand: item
-    })
-}
-
-returnToItemList= () => {
-    this.setState({
-        expandItem: !this.state.expandItem,
-        selectedToExpand: []
-    })
-}
 
 listTheItems= () => {
     return this.props.items.map(item => {
-        return <ItemList item={item} itemClickedOn={this.itemClickedOn} buttonToAddToCartClicked={this.props.buttonToAddToCartClicked}/>
-   
+        return <ItemList key={item.id} item={item} itemClickedOn={this.props.itemClickedOn} buttonToAddToCartClicked={this.props.buttonToAddToCartClicked}/>
     })
 }
 
 giveExpandedViewofItem= () => {
     return <div>
-        <Item selectedToExpand={this.state.selectedToExpand} 
-        returnToItemList={this.returnToItemList} buttonToAddToCartClicked={this.props.buttonToAddToCartClicked}/>
-        <button className="item-display-button" onClick={()=> {this.props.buttonToAddToCartClicked(this.state.selectedToExpand)}}>
+        <Item selectedToExpand={this.props.selectedToExpand} 
+        returnToItemList={this.props.returnToItemList} buttonToAddToCartClicked={this.props.buttonToAddToCartClicked}/>
+        <button className="item-display-button" onClick={()=> {this.props.buttonToAddToCartClicked(this.props.selectedToExpand)}}>
         Add to Cart</button>
-        <button className="item-display-button" onClick={this.returnToItemList}>Return to Inventory</button>
+        <button className="item-display-button" onClick={this.props.returnToItemList}>Return to Inventory</button>
         </div>
 }
 
 chooseWhichToRender= () => {
-    return this.state.expandItem ? this.giveExpandedViewofItem() : this.listTheItems()
+    return this.props.expandItem ? this.giveExpandedViewofItem() : this.listTheItems()
 
 }
 

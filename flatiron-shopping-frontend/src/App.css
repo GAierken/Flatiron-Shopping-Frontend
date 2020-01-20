@@ -1,4 +1,9 @@
+body{
+    background-color: honeydew;
+}
+
 .item-div{
+    background-color: white;
     display: inline-block;
     flex-direction: row;
     flex-wrap: wrap;
@@ -77,6 +82,10 @@
 
 .shopping-app-h1 {
     color: darkgray;
+    text-align: center;
+}
+
+.form {
     text-align: center;
 }
 

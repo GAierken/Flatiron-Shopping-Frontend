@@ -6,11 +6,11 @@ export default class CartItem extends React.Component{
 
 showCartItem= () => {
 
-    const {item, buttonToRemoveFromCart} = this.props
+    const {item, buttonToRemoveFromCart, itemClickedOn} = this.props
 
-    return <div className= "item-div">
+    return <div className= "item-div" >
         <br></br>
-    <img className= "item-list-image" src={item.image} alt={item.name} />
+    <img className= "item-list-image" src={item.image} alt={item.name} onClick={()=> itemClickedOn(item)}/>
     <p className="item-list-name">{item.name}</p>
     <p className="item-list-price"> {item.price}</p>
     <br></br>

@@ -12,7 +12,7 @@ const {selectedToExpand} = this.props
       
         <img className="item-display-image" src={selectedToExpand.image} alt={selectedToExpand.name}/>
         
-        <p>{selectedToExpand.price} </p>
+        <p>Price: ${selectedToExpand.price} </p>
         
         <p>{selectedToExpand.description}</p>
 

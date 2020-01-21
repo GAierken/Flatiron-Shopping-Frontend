@@ -85,7 +85,43 @@ body{
     text-align: center;
 }
 
+.shopping-app-h3 {
+    color: darkgray;
+    text-align: center
+}
+
 .form {
+    text-align: center;
+}
+
+.cart-item-div {
+    background-color: white;
+    display: inline-block;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 20em;
+    height: 26em;
+    box-sizing: border-box;
+    border:.10em solid grey;
+    border-radius: .5em;
+    margin: 1em;
+    padding: 1em;
+    box-sizing: border-box;
+    opacity: 1;
+    text-align: center;
+}
+
+.order-submit-button{
+    width: 8em;
+    height: 5em;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1em;
+}
+
+.order-submit-button-div{
     text-align: center;
 }
 

@@ -39,11 +39,21 @@ loginSubmitted=(event)=>{
         else
           this.props.setToken(data.token, data.user_id)
       })
+      this.setState({
+        username: "",
+        password: ""
+
+      })
 }
 
 
     render() {
         return(
+          <div>
+            <br></br>
+            {this.state.errors.map(error => <p> {error} </p>)} 
+            <br></br>
+          {this.props.loggedIn() ? <h3 className="shopping-app-h3"> "You are logged in! Go to the Home Page to go shopping." </h3> : 
             <div>
                 <h1 className="shopping-app-h1">Login</h1>
                 <form className="form" onSubmit={this.loginSubmitted}>
@@ -53,6 +63,8 @@ loginSubmitted=(event)=>{
                     <br></br>
                     <input type="submit" value="submit" />
             </form>
+            </div>
+          }
             </div>
         )
     }

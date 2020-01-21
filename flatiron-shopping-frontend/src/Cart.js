@@ -45,6 +45,7 @@ export default class Cart extends React.Component{
                 <br></br>
             {this.chooseAFunction()}
             <br></br>
+            <div className="order-submit-button-div"><button className="order-submit-button" onClick={this.props.submitOrder}>Submit Order</button></div>
             <div>
                 <h1 className="shopping-app-h1">Order History</h1>
                 <br></br>

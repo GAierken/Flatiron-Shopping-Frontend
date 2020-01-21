@@ -18,20 +18,48 @@ export default class Signup extends React.Component{
 
     signupSubmitted=(event)=> {
         event.preventDefault();
-        return console.log("clicked")
-        // I am not sure what is supposed to happen when the signup is submitted.
-        // It seems like the form information should be posted to the back-end.
+        console.log("submitted")
+     fetch('http://localhost:3000/users', {
+     method: 'POST',
+     headers: {
+         'Content-Type': 'application/json',
+         'Accept': 'application/json'
+         }, 
+     body: JSON.stringify({
+         username: this.state.username,
+         password: this.state.password,
+         email: this.state.email
+         })
+     })
+     .then(r => r.json())
+     .then(data => {
+         console.log(data)
+         if (data.errors)
+           this.setState({
+             errors: data.errors
+           })
+         else
+           this.props.setToken(data.token, data.user_id)
+       })
+       
+       this.setState({
+           username: "",
+           password: "",
+           email: ""
+       })
     }
-
 
     render() {
         return (
             <div>
+                <br></br>
+                {this.state.errors.map(error => <p> {error} </p>)} 
+                <br></br>
             <h1 className="shopping-app-h1">Signup</h1>
             <form className="form" onSubmit={this.signupSubmitted}>
                 <input type="text" name= "username" value={this.state.username} placeholder="username" onChange={this.enteredLoginCredentials}/>
                 <br></br>
-                <input type="text" name= "password" value={this.state.password} placeholder="password" onChange={this.enteredLoginCredentials}/>
+                <input type="password" name= "password" value={this.state.password} placeholder="password" onChange={this.enteredLoginCredentials}/>
                 <br></br>
                 <input type="text" name= "email" value={this.state.email} placeholder="e-mail address"onChange={this.enteredLoginCredentials}/>
                 <br></br>

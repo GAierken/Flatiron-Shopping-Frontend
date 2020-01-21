@@ -32,12 +32,13 @@ const link = {
             background: 'gainsboro',
           }}> Sign Up</NavLink>
           <NavLink 
+          onClick={this.props.logOutClick}
           to="/login"
           exact
           style={link}
           activeStyle={{
             background: 'gainsboro'
-          }}>Log In</NavLink>
+          }}>{this.props.loggedIn() ? "Log Out" :  "Log In"} </NavLink>
           <NavLink
             to="/cart"
             exact

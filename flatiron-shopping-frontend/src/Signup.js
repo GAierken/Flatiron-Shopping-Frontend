@@ -27,7 +27,7 @@ export default class Signup extends React.Component{
          }, 
      body: JSON.stringify({
          username: this.state.username,
-         password: this.state.password,
+         password_digest: this.state.password,
          email: this.state.email
          })
      })

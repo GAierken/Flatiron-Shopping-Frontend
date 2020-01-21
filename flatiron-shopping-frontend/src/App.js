@@ -18,6 +18,11 @@ state={
   usersOrders: [],
   expandItem: false,
   selectedToExpand: [],
+  feeding: false,
+  clothing: false,
+  travel: false,
+  diaper: false,
+  toys: false
 }
 
 componentDidMount= () => {

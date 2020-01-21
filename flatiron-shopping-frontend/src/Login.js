@@ -27,8 +27,10 @@ loginSubmitted=(event)=>{
         "Accept": "application/json"
       },
       body: JSON.stringify({
-        username: this.state.username,
-        password_digest: this.state.password
+        username: this.state.username
+
+       
+
       })
     }).then(res => res.json())
       .then(data => {

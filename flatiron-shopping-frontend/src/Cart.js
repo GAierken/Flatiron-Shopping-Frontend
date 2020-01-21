@@ -39,7 +39,7 @@ export default class Cart extends React.Component{
 
     render() {
         return (
-            <div>
+            <div className="cart-item-container">
                 <br></br>
                 <h1 className="shopping-app-h1">Shopping Cart</h1>
                 <br></br>

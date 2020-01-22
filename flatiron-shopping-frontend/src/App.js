@@ -70,7 +70,7 @@ logOutClick = () => {
 }
 
 loggedIn=()=>{
-  return !!this.state.token
+  return !!this.state.loggedInUserId
 }
 
 buttonToAddToCartClicked= (item) => {

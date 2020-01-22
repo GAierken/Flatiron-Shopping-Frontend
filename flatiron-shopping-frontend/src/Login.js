@@ -28,7 +28,7 @@ loginSubmitted=(event)=>{
       },
       body: JSON.stringify({
         username: this.state.username,
-        password_digets: this.state.password
+        password_digest: this.state.password
       })
     }).then(res => res.json())
       .then(data => {

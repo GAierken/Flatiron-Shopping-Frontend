@@ -13,12 +13,13 @@ export default class SearchBar extends React.Component{
          <label className="filter-label">
         <strong>Filter by: </strong>
         <select onChange={this.props.settingBooleanForSorting}>
-          <option value="Feeding">Feeding</option>
-          <option value="Clothing">Clothing</option>
-          <option value="Travel">Travel</option>
-          <option value="Diaper">Diaper</option>
-          <option value="Toys">Toys</option>
-          <option value="All">All</option>
+          <option value="all">All</option>
+          <option value="clothing">Clothing</option>
+          <option value="travel">Travel</option>
+          <option value="diaper">Diaper</option>
+          <option value="toys">Toys</option>
+          <option value="feeding">Feeding</option>
+          
         </select>
       </label>
 

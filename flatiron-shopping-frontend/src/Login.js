@@ -37,12 +37,7 @@ loginSubmitted=(event)=>{
             errors: data.errors
           })
         else
-          this.props.setToken(data.token, data.user_id)
-      })
-      this.setState({
-        username: "",
-        password: ""
-
+          this.props.setToken(data.token, data.id)
       })
 }
 

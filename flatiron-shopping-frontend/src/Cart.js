@@ -30,10 +30,7 @@ export default class Cart extends React.Component{
     displayOrderHistory=()=> {
         
         return this.props.usersOrders.map(order=> {
-            return <div>
-                <p>{order.item}</p>
-                <p>{order.price}</p>
-            </div>
+            return order.items
         })
     }
 

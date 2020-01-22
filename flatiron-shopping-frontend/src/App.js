@@ -33,22 +33,20 @@ componentDidMount= () => {
       items: itemsArray,
       token: localStorage.token,
       loggedInUserId: localStorage.loggedInUserId
-    })
+    }, this.fetchOrderHistory)
   })
-
-  // if (this.state.loggedInUserId) {
-  //   fetch(`http://localhost:3000/users/${ this.state.loggedInUserId }`, {
-  //     headers: {
-  //       "Authorization": this.state.token
-  //     }
-  //   })
-  //   .then(res => res.json())
-  //   .then(user => this.setState({
-  //     usersOrders: user.orders
-  //   }))
-  // }
-  // I don't know whether this second fetch will be able to happen here.
 }
+
+
+  fetchOrderHistory=()=>{fetch(`http://localhost:3000/users/${this.state.loggedInUserId}`)
+  .then(r => r.json())
+  .then(user => {
+    this.setState({
+      usersOrders: user.orders
+      })
+    })
+  }
+
 
 setToken = (token, loggedInUserId) => {
   localStorage.token = token;
@@ -119,9 +117,9 @@ returnToItemList= () => {
 
 submitOrder=()=>{
 
-  const orderItemsIds= this.state.selectedItems.filter(selectedItem=>{
+  const orderItemsIds= this.state.selectedItems.map(selectedItem=>{
     return selectedItem.id
-  })
+    })
 
   fetch("http://localhost:3000/orders", {
     method: "POST",
@@ -241,6 +239,7 @@ renderItems= () => {
 
 
 render() {
+  console.log(this.state.loggedInUserId)
   return (
     <div >
       <Router>

@@ -51,9 +51,10 @@ componentDidMount= () => {
 }
 
 setToken = (token, loggedInUserId) => {
+ 
   localStorage.token = token;
   localStorage.loggedInUserId = loggedInUserId;
-
+ debugger
   this.setState({
     token: token,
     loggedInUserId: loggedInUserId
@@ -145,7 +146,7 @@ submitOrder=()=>{
 
 
 render() {
-  console.log(this.state.token)
+  console.log(this.state.loggedInUserId)
   return (
     <div >
       <Router>

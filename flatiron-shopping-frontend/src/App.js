@@ -33,19 +33,20 @@ componentDidMount= () => {
       items: itemsArray,
       token: localStorage.token,
       loggedInUserId: localStorage.loggedInUserId
-    }, this.fetchOrderHistory)
+    })
   })
 }
 
 
-  fetchOrderHistory=()=>{fetch(`http://localhost:3000/users/${this.state.loggedInUserId}`)
-  .then(r => r.json())
-  .then(user => {
-    this.setState({
-      usersOrders: user.orders
-      })
-    })
-  }
+  // add the below function as an argument above when this is all working
+  // fetchOrderHistory=()=>{fetch(`http://localhost:3000/users/${this.state.loggedInUserId}`)
+  // .then(r => r.json())
+  // .then(user => {
+  //   this.setState({
+  //     usersOrders: user.orders
+  //     })
+  //   })
+  // }
 
 
 setToken = (token, loggedInUserId) => {

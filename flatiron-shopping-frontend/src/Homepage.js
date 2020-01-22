@@ -13,7 +13,7 @@ export default class Homepage extends React.Component{
 
 
     render() {
-        console.log(this.props.items)
+        // console.log(this.props.items)
         return (
 <div>
 <br></br>

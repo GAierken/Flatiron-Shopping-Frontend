@@ -50,12 +50,13 @@ componentDidMount= () => {
   // I don't know whether this second fetch will be able to happen here.
 }
 
-setToken = (token, loggedInUserId) => {
-  localStorage.token = token;
+setToken = (loggedInUserId) => {
+
+  // localStorage.token = token;
   localStorage.loggedInUserId = loggedInUserId;
  
   this.setState({
-    token: token,
+    // token: token,
     loggedInUserId: loggedInUserId
   })
 }
@@ -70,7 +71,7 @@ logOutClick = () => {
 }
 
 loggedIn=()=>{
-  return !!this.state.token
+  return !!this.state.loggedInUserId
 }
 
 buttonToAddToCartClicked= (item) => {
@@ -119,10 +120,10 @@ returnToItemList= () => {
 
 submitOrder=()=>{
 
-  const orderItemsIds= this.state.selectedItems.filter(selectedItem=>{
+  const orderItemsIds= this.state.selectedItems.map(selectedItem=>{
     return selectedItem.id
   })
-
+  
   fetch("http://localhost:3000/orders", {
     method: "POST",
     headers: {
@@ -130,20 +131,47 @@ submitOrder=()=>{
       "Accept": "application/json"
     },
     body: JSON.stringify({
-      user_id: this.state.loggedInUserId,
-      item_id: [...orderItemsIds]
+      user_id: this.state.loggedInUserId
+      // items: this.state.selectedItems
     })
   })
   .then(r=> r.json())
   .then(response => {
-    this.setState({
-      selectedItems: []
+    // console.log(orderItemsIds)
+    orderItemsIds.map((id) => {
+     
+      fetch('http://localhost:3000/jointables', {
+      method: 'POST',
+      headers:{
+        'content-type': 'application/json',
+        'accept': 'application/json'      
+      },
+      body: JSON.stringify({
+        item_id: id,
+        order_id: response.id
+      
+      })
     })
+    .then(r => r.json())
+    .then(join => {
+      if(join.order.items.length === orderItemsIds.length){
+      console.log(this.state.loggedInUserId)}
+    })
+
+    })
+  
+    
+    // this.setState({
+    //   selectedItems: []
+    // })
+   
   })
+
+  
 }
 
 settingBooleanForSorting= (event) => {
-  console.log(event.target.value)
+  // console.log(event.target.value)
 
   if (event.target.value === "feeding") {
     this.setState({
@@ -241,6 +269,7 @@ renderItems= () => {
 
 
 render() {
+  
   return (
     <div >
       <Router>

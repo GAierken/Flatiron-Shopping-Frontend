@@ -10,6 +10,7 @@ state= {
 }
 
 enteredLoginCredentials = (event) => {
+ 
     this.setState({
         [event.target.name]: event.target.value
     })
@@ -18,7 +19,6 @@ enteredLoginCredentials = (event) => {
 loginSubmitted=(event)=>{
     event.preventDefault();
 
-    console.log("clicked");
 
     fetch("http://localhost:3000/login", {
       method: "POST",
@@ -40,24 +40,25 @@ loginSubmitted=(event)=>{
             errors: data.errors
           })
         else
-          this.props.setToken(data.token, data.user_id)
+          this.props.setToken(data.id)
       })
-      this.setState({
-        username: "",
-        password: ""
+      // this.setState({
+      //   username: "",
+      //   password: ""
 
-      })
+      // })
 }
 
 
     render() {
+      
       
         return(
           <div>
             <br></br>
             {this.state.errors.map(error => <p> {error} </p>)} 
             <br></br>
-          {this.props.loggedIn() ? <h3 className="shopping-app-h3"> "You are logged in! Go to the Home Page to go shopping." </h3> : 
+          {this.props.loggedIn()? <h3 className="shopping-app-h3"> "You are logged in! Go to the Home Page to go shopping." </h3> : 
             <div>
                 <h1 className="shopping-app-h1">Login</h1>
                 <form className="form" onSubmit={this.loginSubmitted}>

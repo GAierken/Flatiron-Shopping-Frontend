@@ -18,7 +18,7 @@ export default class Cart extends React.Component{
     ExpandedView= () => {
     return <div>
         <Item selectedToExpand={this.props.selectedToExpand} />
-        <button onClick={this.props.returnToItemList}>Return to Cart</button>
+        <button className="return-to-cart-button" onClick={this.props.returnToItemList}>Return to Cart</button>
         </div>
     }
 
@@ -45,18 +45,24 @@ export default class Cart extends React.Component{
         return (
             <div className="cart-item-container">
                 <br></br>
-                <h1 className="shopping-app-h1">Shopping Cart</h1>
+                {!this.props.expandItem ?
+                <div>
+                <h1 className="shopping-app-h1">Shopping Cart</h1> 
                 <br></br>
+                </div> :
+                <div></div>}
             {this.chooseAFunction()}
             <br></br>
-            {this.props.selectedItems.length > 0 ?
+            {this.props.selectedItems.length > 0 && !this.props.expandItem ?
             <div className="order-submit-button-div"><button className="order-submit-button" onClick={this.props.submitOrder}>Submit Order</button></div> :
             <div></div>}
-           <div>
+            {!this.props.expandItem ?
+                <div>
                 <h1 className="shopping-app-h1">Order History</h1>
                 <br></br>
                 {this.displayOrderHistory()}
-            </div>
+            </div> :
+            <div></div>}
             </div>
         )
     }

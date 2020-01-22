@@ -29,8 +29,15 @@ export default class Cart extends React.Component{
 
     displayOrderHistory=()=> {
         
-        return this.props.usersOrders.map(order=> {
+        const orderItems= this.props.usersOrders.map(order=> {
             return order.items
+        })
+
+        return orderItems.map(item=>{
+            return <div>
+                <p>{item.name}</p>
+                <p>{item.price}</p>
+            </div>
         })
     }
 
@@ -46,7 +53,7 @@ export default class Cart extends React.Component{
             <div>
                 <h1 className="shopping-app-h1">Order History</h1>
                 <br></br>
-                {this.displayOrderHistory}
+                {this.displayOrderHistory()}
             </div>
             </div>
         )

@@ -72,8 +72,6 @@ loggedIn=()=>{
 }
 
 buttonToAddToCartClicked= (item) => {
-
-  // item.quantity +=1;
   
   this.setState({
     selectedItems: [...this.state.selectedItems, item]
@@ -82,23 +80,21 @@ buttonToAddToCartClicked= (item) => {
 
 buttonToRemoveFromCart= (item) => {
 
-  // item.quantity-=1;
-
-  // if (item.quantity=== 0)
-
-  // this won't work, because we don't want to have quantity as an attribute of an item
-
-  let arrayWithItemRemoved= this.state.selectedItems.filter(data => {
-    return data !== item
+  const arrayOfItems= this.state.selectedItems.filter(data => {
+    return data === item
   })
+
+  arrayOfItems.shift()
+
+  let itemsWithoutArrayOfItems= this.state.selectedItems.filter(data=>{
+    return data !==item
+  })
+
+  const mergedArray= [...itemsWithoutArrayOfItems, ...arrayOfItems]
 
   this.setState({
-    selectedItems: arrayWithItemRemoved
+    selectedItems: mergedArray
   })
-
-  // This has some strange behavior when there are multiples of the same item in a cart.
-  // There should be an input field for quantity and functions to handle having more than one
-  // of a particular item in a cart.
 }
 
 itemClickedOn= (item) => {

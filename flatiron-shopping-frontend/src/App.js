@@ -33,28 +33,27 @@ componentDidMount= () => {
       items: itemsArray,
       token: localStorage.token,
       loggedInUserId: localStorage.loggedInUserId
-    })
+    }, this.fetchOrderHistory)
   })
 }
 
 
-  // add the below function as an argument above when this is all working
-  // fetchOrderHistory=()=>{fetch(`http://localhost:3000/users/${this.state.loggedInUserId}`)
-  // .then(r => r.json())
-  // .then(user => {
-  //   this.setState({
-  //     usersOrders: user.orders
-  //     })
-  //   })
-  // }
+  fetchOrderHistory=()=>{fetch(`http://localhost:3000/users/${this.state.loggedInUserId}`)
+  .then(r => r.json())
+  .then(user => {
+    this.setState({
+      usersOrders: user.orders
+      })
+    })
+  }
 
 
-setToken = (token, loggedInUserId) => {
-  localStorage.token = token;
+setToken = (loggedInUserId) => {
+  // localStorage.token = token;
   localStorage.loggedInUserId = loggedInUserId;
 
   this.setState({
-    token: token,
+    // token: token,
     loggedInUserId: loggedInUserId
   })
 }
@@ -112,7 +111,7 @@ returnToItemList= () => {
   })
 }
 
-submitOrder=()=>{
+submitOrder=()=> {
 
   const orderItemsIds= this.state.selectedItems.map(selectedItem=>{
     return selectedItem.id
@@ -126,16 +125,36 @@ submitOrder=()=>{
     },
     body: JSON.stringify({
       user_id: this.state.loggedInUserId,
-      item_id: [...orderItemsIds]
     })
   })
   .then(r=> r.json())
   .then(response => {
-    this.setState({
-      selectedItems: []
+    return orderItemsIds.map(id=> {
+      return fetch("http://localhost:3000/jointables", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          item_id: id,
+          order_id: response.id
+        })
+      })
+      .then(r=> r.json())
+      .then(join => {
+        if(join.order.items.length === orderItemsIds.length) {
+              this.setState({
+                  selectedItems: []
+                  })
+        }
+      })
     })
   })
 }
+
+    
+
 
 settingBooleanForSorting= (event) => {
   console.log(event.target.value)

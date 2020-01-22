@@ -37,7 +37,7 @@ loginSubmitted=(event)=>{
             errors: data.errors
           })
         else
-          this.props.setToken(data.token, data.id)
+          this.props.setToken(data.id)
       })
 }
 
@@ -54,7 +54,7 @@ loginSubmitted=(event)=>{
                 <form className="form" onSubmit={this.loginSubmitted}>
                     <input type="text" name= "username" value={this.state.username} placeholder="username" onChange={this.enteredLoginCredentials}/>
                     <br></br>
-                    <input type="text" name= "password" value={this.state.password} placeholder="password" onChange={this.enteredLoginCredentials}/>
+                    <input type="password" name= "password" value={this.state.password} placeholder="password" onChange={this.enteredLoginCredentials}/>
                     <br></br>
                     <input type="submit" value="submit" />
             </form>

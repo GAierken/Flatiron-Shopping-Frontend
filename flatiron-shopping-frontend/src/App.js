@@ -51,10 +51,9 @@ componentDidMount= () => {
 }
 
 setToken = (token, loggedInUserId) => {
- 
   localStorage.token = token;
   localStorage.loggedInUserId = loggedInUserId;
- debugger
+ 
   this.setState({
     token: token,
     loggedInUserId: loggedInUserId
@@ -111,7 +110,6 @@ itemClickedOn= (item) => {
   })
 }
 
-
 returnToItemList= () => {
   this.setState({
       expandItem: !this.state.expandItem,
@@ -144,9 +142,105 @@ submitOrder=()=>{
   })
 }
 
+settingBooleanForSorting= (event) => {
+  console.log(event.target.value)
+
+  if (event.target.value === "feeding") {
+    this.setState({
+      feeding: !this.state.feeding,
+      clothing: false,
+      travel: false,
+      diaper: false,
+      toys: false
+    })
+  }
+
+  if (event.target.value === "clothing") {
+    this.setState({
+      feeding: false,
+      clothing: !this.state.clothing,
+      travel: false,
+      diaper: false,
+      toys: false
+    })
+  }
+
+  if (event.target.value === "travel") {
+    this.setState({
+      feeding: false,
+      clothing: false,
+      travel: !this.state.travel,
+      diaper: false,
+      toys: false
+    })
+  }
+
+  if (event.target.value === "diaper") {
+    this.setState({
+      feeding: false,
+      clothing: false,
+      travel: false,
+      diaper: !this.state.diaper,
+      toys: false
+    })
+  }
+
+  if (event.target.value === "toys") {
+    this.setState({
+      feeding: false,
+      clothing: false,
+      travel: false,
+      diaper: false,
+      toys: !this.state.toys
+    })
+  }
+
+  if (event.target.value === "all") {
+    this.setState({
+      items: this.state.items,
+      feeding: false,
+      clothing: false,
+      travel: false,
+      diaper: false,
+      toys: false
+    })
+  }
+}
+
+renderItems= () => {
+
+  let items= [...this.state.items]
+  
+    if (this.state.feeding) {
+      items=this.state.items.filter(item => {
+        return item.category==="feeding"})
+    }
+  
+    if (this.state.clothing) {
+      items=this.state.items.filter(item=> {
+        return item.category==="clothing"})
+    }
+  
+    if (this.state.travel) {
+      items= this.state.items.filter(item => {
+        return item.category==="travel"})
+    }
+  
+    if (this.state.diaper) {
+      items= this.state.items.filter(item => {
+        return item.category==="diaper"})
+  }
+  
+  if (this.state.toys) {
+    items= this.state.items.filter(item => {
+      return item.category==="toys"})
+  }
+
+  return items
+}
+
 
 render() {
-  console.log(this.state.loggedInUserId)
   return (
     <div >
       <Router>
@@ -155,7 +249,7 @@ render() {
           <Route exact path="/cart" render={(renderProps) => <div className= "main-item-container"> <Cart {...renderProps} selectedItems={this.state.selectedItems} buttonToRemoveFromCart={this.buttonToRemoveFromCart} usersOrders={this.state.usersOrders} expandItem={this.state.expandItem} selectedToExpand={this.state.selectedToExpand} itemClickedOn={this.itemClickedOn} returnToItemList={this.returnToItemList} submitOrder={this.submitOrder}/> </div> } />
           <Route exact path="/login" render={(renderProps) => <Login {...renderProps} setToken={this.setToken} loggedIn={this.loggedIn}/>} />
           <Route exact path="/signup" render={(renderProps) => <Signup {...renderProps} setToken={this.setToken}/> } /> 
-          <Route exact path="/" render={(renderProps) => <Homepage {...renderProps} buttonToAddToCartClicked={this.buttonToAddToCartClicked} items={this.state.items} itemClickedOn={this.itemClickedOn} returnToItemList={this.returnToItemList} selectedToExpand={this.state.selectedToExpand} expandItem={this.state.expandItem}/> }   />
+          <Route exact path="/" render={(renderProps) => <Homepage {...renderProps} settingBooleanForSorting={this.settingBooleanForSorting} items={this.renderItems()} buttonToAddToCartClicked={this.buttonToAddToCartClicked} itemClickedOn={this.itemClickedOn} returnToItemList={this.returnToItemList} selectedToExpand={this.state.selectedToExpand} expandItem={this.state.expandItem}/> }   />
           </Switch>
         </Router>
         </div>

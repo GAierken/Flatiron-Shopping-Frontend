@@ -27,7 +27,7 @@ export default class Signup extends React.Component{
          }, 
      body: JSON.stringify({
          username: this.state.username,
-         password_digest: this.state.password,
+         password: this.state.password,
          email: this.state.email
          })
      })
@@ -55,6 +55,9 @@ export default class Signup extends React.Component{
                 <br></br>
                 {this.state.errors.map(error => <p> {error} </p>)} 
                 <br></br>
+
+            {!this.props.loggedIn() ?
+            <div>
             <h1 className="shopping-app-h1">Signup</h1>
             <form className="form" onSubmit={this.signupSubmitted}>
                 <input type="text" name= "username" value={this.state.username} placeholder="username" onChange={this.enteredLoginCredentials}/>
@@ -65,6 +68,9 @@ export default class Signup extends React.Component{
                 <br></br>
                 <input type="submit" value="submit" />
         </form>
+        </div>
+        :
+            <p>You are logged in!</p> }
         </div>
         )
     }

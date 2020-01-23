@@ -31,7 +31,7 @@ loginSubmitted=(event)=>{
       })
     }).then(res => res.json())
       .then(data => {
-        
+        console.log(data)
         if (data.errors)
           this.setState({
             errors: data.errors
@@ -54,7 +54,7 @@ loginSubmitted=(event)=>{
             {this.state.errors.map(error => <p> {error} </p>)} 
             <br></br>
             {this.props.loggedIn() ? 
-            <div className="welcome-message">Welcome, {this.props.username}! </div> :
+            <div className="welcome-message">Welcome back!</div> :
             <div>
                 <h1 className="shopping-app-h1">Login</h1>
                 <form className="form" onSubmit={this.loginSubmitted}>

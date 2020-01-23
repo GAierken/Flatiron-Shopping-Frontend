@@ -6,7 +6,25 @@ import SearchBar from './SearchBar';
 export default class Homepage extends React.Component{
 
 
+    componentDidMount=()=>{
 
+        if (this.props.loggedIn()){
+   fetch(`http://localhost:3000/users/${this.props.loggedInUserId}`, {
+     headers: {
+       "Authorization": this.props.token}
+     })
+ .then(r => r.json())
+ .then(user => {
+   this.setState({
+     usersOrders: user.orders,
+     username: user.username,
+     usersEmail: user.email
+     })
+   })
+
+ }
+   
+   }
 
 
 
@@ -16,7 +34,6 @@ export default class Homepage extends React.Component{
 <br></br>
 {this.props.loggedIn() ?
           <div className="welcome-message">
-          <p> Hello, {this.props.username}!</p>
           </div> :
           <br></br>}
         <h1 className="shopping-app-h1">Flatiron Shopping App</h1>

@@ -10,13 +10,15 @@ export default class Homepage extends React.Component{
 
 
 
-
-
     render() {
-        // console.log(this.props.items)
         return (
 <div>
 <br></br>
+{this.props.loggedIn() ?
+          <div className="welcome-message">
+          <p> Hello, {this.props.username}!</p>
+          </div> :
+          <br></br>}
         <h1 className="shopping-app-h1">Flatiron Shopping App</h1>
         <br></br>
         {this.props.expandItem ?

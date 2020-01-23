@@ -24,7 +24,6 @@ giveExpandedViewofItem= () => {
 
 chooseWhichToRender= () => {
     return this.props.expandItem ? this.giveExpandedViewofItem() : this.listTheItems()
-
 }
 
 render() {

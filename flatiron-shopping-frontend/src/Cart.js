@@ -27,30 +27,26 @@ export default class Cart extends React.Component{
     
     }
 
-    displayOrderHistory=()=> {
-        
-        return this.props.usersOrders.map(order=> {
-            return <div>
-                <p>{order.item}</p>
-                <p>{order.price}</p>
-            </div>
-        })
-    }
-
     render() {
         return (
             <div className="cart-item-container">
                 <br></br>
-                <h1 className="shopping-app-h1">Shopping Cart</h1>
+                {!this.props.loggedIn() ? <p className="welcome-message">Log in to make a purchase</p> : 
+                <div>
+                    {!this.props.expandItem ?
+                        <div>
+                        <h1 className="shopping-app-h1">Shopping Cart</h1> 
+                        <br></br>
+                        </div> :
+                        <div></div>}
+                {this.chooseAFunction()}
                 <br></br>
-            {this.chooseAFunction()}
-            <br></br>
-            <div className="order-submit-button-div"><button className="order-submit-button" onClick={this.props.submitOrder}>Submit Order</button></div>
-            <div>
-                <h1 className="shopping-app-h1">Order History</h1>
-                <br></br>
-                {this.displayOrderHistory}
-            </div>
+                {this.props.selectedItems.length > 0 && !this.props.expandItem ?
+                <div className="order-submit-button-div"><button className="order-submit-button" onClick={this.props.submitOrder}>Submit Order</button></div> :
+                <div></div>}
+                </div>
+                }
+            
             </div>
         )
     }

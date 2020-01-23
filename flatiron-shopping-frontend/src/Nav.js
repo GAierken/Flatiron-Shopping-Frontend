@@ -47,7 +47,14 @@ const link = {
               background: 'gainsboro',
             }}
           >Cart</NavLink>
-        
+           <NavLink
+            to="/profile"
+            exact
+            style={link}
+            activeStyle={{
+              background: 'gainsboro',
+            }}
+          >Profile</NavLink>
         </div>
       )
     }

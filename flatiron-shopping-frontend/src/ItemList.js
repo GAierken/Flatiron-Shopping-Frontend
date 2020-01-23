@@ -17,8 +17,6 @@ itemListing= () => {
     </div>
 }
 
-
-
 render() {
   return (
     this.itemListing()

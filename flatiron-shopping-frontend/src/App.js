@@ -6,6 +6,7 @@ import Cart from './Cart';
 import Login from './Login';
 import Signup from './Signup';
 import Homepage from './Homepage';
+import Profile from './Profile';
 
 
 class App extends React.Component {
@@ -15,7 +16,9 @@ state={
   selectedItems: [],
   loggedInUserId: null,
   token: null,
+  username: "",
   usersOrders: [],
+  usersEmail: "",
   expandItem: false,
   selectedToExpand: [],
   feeding: false,
@@ -37,16 +40,16 @@ componentDidMount= () => {
   })
 }
 
-
   fetchOrderHistory=()=>{fetch(`http://localhost:3000/users/${this.state.loggedInUserId}`)
   .then(r => r.json())
   .then(user => {
     this.setState({
-      usersOrders: user.orders
+      usersOrders: user.orders,
+      username: user.username,
+      usersEmail: user.email
       })
     })
-  }
-
+}
 
 setToken = (token, loggedInUserId) => {
   localStorage.token = token;
@@ -66,7 +69,11 @@ logOutClick = () => {
   localStorage.removeItem("token")
   this.setState({
     loggedInUserId: null,
-    token: null
+    token: null,
+    username: "",
+    usersEmail: "",
+    selectedItems: [],
+    usersOrders: []
   })
 }
 
@@ -164,11 +171,7 @@ submitOrder=()=> {
   
 
 
-    
-
-
 settingBooleanForSorting= (event) => {
-  // console.log(event.target.value)
 
   if (event.target.value === "feeding") {
     this.setState({
@@ -264,18 +267,46 @@ renderItems= () => {
   return items
 }
 
+deleteAccount=()=> {
+  fetch(`http://localhost/3000/users/${this.state.loggedInUserId}`, {
+    method: "DELETE"})
+    .then(r=>r.json())
+    .then(data => {
+      return this.logOutClick()
+    })
+  }
+
+  updateEmail=(email)=>{
+    fetch(`http://localhost:3000/users/${this.state.loggedInUserId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        email: email
+      })
+    })
+    .then(r=>r.json())
+    .then(data=>{
+      this.setState({
+        usersEmail: data.email
+      })
+    })
+  }
+
 
 render() {
-  
   return (
     <div >
       <Router>
-          <Nav loggedIn={this.loggedIn} logOutClick={this.logOutClick}/> 
+          <Nav loggedIn={this.loggedIn} logOutClick={this.logOutClick} /> 
           <Switch>
-          <Route exact path="/cart" render={(renderProps) => <div className= "main-item-container"> <Cart {...renderProps} selectedItems={this.state.selectedItems} buttonToRemoveFromCart={this.buttonToRemoveFromCart} usersOrders={this.state.usersOrders} expandItem={this.state.expandItem} selectedToExpand={this.state.selectedToExpand} itemClickedOn={this.itemClickedOn} returnToItemList={this.returnToItemList} submitOrder={this.submitOrder}/> </div> } />
-          <Route exact path="/login" render={(renderProps) => <Login {...renderProps} setToken={this.setToken} loggedIn={this.loggedIn}/>} />
+          <Route exact path="/cart" render={(renderProps) => <div className= "main-item-container"> <Cart {...renderProps} selectedItems={this.state.selectedItems} buttonToRemoveFromCart={this.buttonToRemoveFromCart} usersOrders={this.state.usersOrders} expandItem={this.state.expandItem} selectedToExpand={this.state.selectedToExpand} itemClickedOn={this.itemClickedOn} returnToItemList={this.returnToItemList} submitOrder={this.submitOrder} loggedIn={this.loggedIn}/> </div> } />
+          <Route exact path="/login" render={(renderProps) => <Login {...renderProps} username={this.state.username} usersEmail={this.state.usersEmail} usersOrders={this.state.usersOrders} setToken={this.setToken} loggedIn={this.loggedIn}/>} />
           <Route exact path="/signup" render={(renderProps) => <Signup {...renderProps} setToken={this.setToken}/> } /> 
-          <Route exact path="/" render={(renderProps) => <Homepage {...renderProps} settingBooleanForSorting={this.settingBooleanForSorting} items={this.renderItems()} buttonToAddToCartClicked={this.buttonToAddToCartClicked} itemClickedOn={this.itemClickedOn} returnToItemList={this.returnToItemList} selectedToExpand={this.state.selectedToExpand} expandItem={this.state.expandItem}/> }   />
+          <Route exact path="/" render={(renderProps) => <Homepage {...renderProps} loggedIn={this.loggedIn} username={this.state.username} settingBooleanForSorting={this.settingBooleanForSorting} items={this.renderItems()} buttonToAddToCartClicked={this.buttonToAddToCartClicked} itemClickedOn={this.itemClickedOn} returnToItemList={this.returnToItemList} selectedToExpand={this.state.selectedToExpand} expandItem={this.state.expandItem}/> }   />
+          <Route exact path="/profile" render={(renderProps) => <Profile {...renderProps} updateEmail={this.updateEmail} deleteAccount={this.deleteAccount} username={this.state.username} usersEmail={this.state.usersEmail} usersOrders={this.state.usersOrders} loggedIn={this.loggedIn}/> } />
           </Switch>
         </Router>
         </div>

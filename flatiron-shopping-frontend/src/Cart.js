@@ -18,7 +18,7 @@ export default class Cart extends React.Component{
     ExpandedView= () => {
     return <div>
         <Item selectedToExpand={this.props.selectedToExpand} />
-        <button className="return-to-cart-button" onClick={this.props.returnToItemList}>Return to Cart</button>
+        <button onClick={this.props.returnToItemList}>Return to Cart</button>
         </div>
     }
 

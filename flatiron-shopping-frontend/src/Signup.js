@@ -18,7 +18,7 @@ export default class Signup extends React.Component{
 
     signupSubmitted=(event)=> {
         event.preventDefault();
-        console.log("submitted")
+       
      fetch('http://localhost:3000/users', {
      method: 'POST',
      headers: {
@@ -33,7 +33,7 @@ export default class Signup extends React.Component{
      })
      .then(r => r.json())
      .then(data => {
-         console.log(data)
+         
          if (data.errors)
            this.setState({
              errors: data.errors

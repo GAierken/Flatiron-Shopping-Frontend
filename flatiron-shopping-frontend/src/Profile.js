@@ -36,7 +36,7 @@ export default class Profile extends React.Component{
     }
 
     render(){
-        console.log('profile props', this.props)
+       console.log('profile props', this.props.usersEmail)
         return( 
         <div>
             {this.props.loggedIn() ? 

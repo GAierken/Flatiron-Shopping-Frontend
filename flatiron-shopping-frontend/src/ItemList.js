@@ -12,7 +12,7 @@ itemListing= () => {
   
         <img className= "item-list-image" onClick={()=> this.props.itemClickedOn(item)} src={item.image} alt={item.name}/>
           <br></br>
-        <button className= "item-list-button" onClick={()=> this.props.buttonToAddToCartClicked(item)}>Add to Cart</button>
+        {this.props.loggedIn() ? <button className= "item-list-button" onClick={()=> this.props.buttonToAddToCartClicked(item)}>Add to Cart</button> : <div>Please sign in to add to cart </div> }
           <br></br>
     </div>
 }

@@ -67,7 +67,6 @@ headers: {
   }
 
 
-
 logOutClick = () => {
   localStorage.removeItem("loggedInUserId")
   localStorage.removeItem("token")
@@ -84,7 +83,6 @@ logOutClick = () => {
 loggedIn=()=>{
   return !!this.state.token
 }
-
 
 buttonToAddToCartClicked= (item) => {
   
@@ -158,9 +156,11 @@ submitOrder=()=> {
       })
       .then(r=> r.json())
       .then(join => {
+
         if(join.order.items.length === orderItemsIds.length) {
               this.setState({
-                  selectedItems: []
+                  selectedItems: [],
+                  usersOrders: [...this.state.usersOrders, join.order]
                   })
         }
        
@@ -168,9 +168,6 @@ submitOrder=()=> {
     })
 
     })
-  
-    
-    
     alert('Purchased!')
   }
 

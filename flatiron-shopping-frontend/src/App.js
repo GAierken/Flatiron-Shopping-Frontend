@@ -156,9 +156,11 @@ submitOrder=()=> {
       })
       .then(r=> r.json())
       .then(join => {
+
         if(join.order.items.length === orderItemsIds.length) {
               this.setState({
-                  selectedItems: []
+                  selectedItems: [],
+                  usersOrders: [...this.state.usersOrders, join.order]
                   })
         }
        
@@ -166,9 +168,6 @@ submitOrder=()=> {
     })
 
     })
-  
-    
-    
     alert('Purchased!')
   }
 

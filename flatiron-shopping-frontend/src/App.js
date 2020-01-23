@@ -57,42 +57,61 @@ componentDidMount= () => {
   })
 }
 
-setToken = (token, loggedInUserId) => {
+setToken = (token, id) => {
   localStorage.token = token;
-  localStorage.loggedInUserId = loggedInUserId;
-  fetch(`http://localhost:3000/users/${loggedInUserId}`, {
-    headers: {
-      "Authorization": token
-    }
-        })
-      .then(r => r.json())
-      .then(user => {
-        this.setState({
-          usersOrders: user.orders,
-          username: user.username,
-          usersEmail: user.email,
-          token: token,
-          loggedInUserId: loggedInUserId
-          })
-        })
-
-  }
-
-  fetchOrderInfo= () => {
-    fetch(`http://localhost:3000/users/${this.state.loggedInUserId}`, {
+  localStorage.loggedInUserId = id;
+  fetch(`http://localhost:3000/users/${id}`, {
 headers: {
-  "Authorization": this.state.token
+  "Authorization": token
 }
     })
   .then(r => r.json())
   .then(user => {
+    console.log('fetch', user)
     this.setState({
       usersOrders: user.orders,
       username: user.username,
       usersEmail: user.email
       })
     })
+  this.setState({
+    token: token,
+    loggedInUserId: id
+    })
   }
+
+//   fetchOrderInfo= () => {
+//     fetch(`http://localhost:3000/users/${this.state.loggedInUserId}`, {
+// headers: {
+//   "Authorization": this.state.token
+// }
+//     })
+//   .then(r => r.json())
+//   .then(user => {
+//     this.setState({
+//       usersOrders: user.orders,
+//       username: user.username,
+//       usersEmail: user.email
+//       })
+//     })
+//   }
+
+logOutClick = () => {
+  localStorage.removeItem("loggedInUserId")
+  localStorage.removeItem("token")
+  this.setState({
+    loggedInUserId: null,
+    token: null,
+    username: "",
+    usersEmail: "",
+    selectedItems: [],
+    usersOrders: []
+  })
+}
+
+loggedIn=()=>{
+  return !!this.state.token
+}
 
 buttonToAddToCartClicked= (item) => {
   
@@ -173,8 +192,16 @@ submitOrder=()=> {
         }
       })
     })
-  })
-}
+
+    })
+  
+    
+    
+   
+  }
+
+  
+
 
 settingBooleanForSorting= (event) => {
 
@@ -279,6 +306,7 @@ deleteAccount=()=> {
     .then(data => {
       return this.logOutClick()
     })
+    alert('Deleted!')
   }
 
   updateEmail=(email)=>{
@@ -289,20 +317,22 @@ deleteAccount=()=> {
         "Accept": "application/json"
       },
       body: JSON.stringify({
-        email: email.email
+        email: email.usersEmail
       })
     })
     .then(r=>r.json())
     .then(data=>{
+      
       this.setState({
         usersEmail: data.email
       })
     })
+    alert('Your Email is updated!')
   }
 
 
 render() {
-  console.log(this.state.token)
+  console.log('app states', this.state.usersEmail)
   return (
     <div >
       <Router>
@@ -311,7 +341,7 @@ render() {
           <Route exact path="/cart" render={(renderProps) => <div className= "main-item-container"> <Cart {...renderProps} selectedItems={this.state.selectedItems} buttonToRemoveFromCart={this.buttonToRemoveFromCart} usersOrders={this.state.usersOrders} expandItem={this.state.expandItem} selectedToExpand={this.state.selectedToExpand} itemClickedOn={this.itemClickedOn} returnToItemList={this.returnToItemList} submitOrder={this.submitOrder} loggedIn={this.loggedIn}/> </div> } />
           <Route exact path="/login" render={(renderProps) => <Login {...renderProps} fetchOrderInfo={this.fetchOrderInfo} username={this.state.username} usersEmail={this.state.usersEmail} usersOrders={this.state.usersOrders} setToken={this.setToken} loggedIn={this.loggedIn}/>} />
           <Route exact path="/signup" render={(renderProps) => <Signup {...renderProps} loggedIn={this.loggedIn} setToken={this.setToken}/> } /> 
-          <Route exact path="/" render={(renderProps) => <Homepage {...renderProps} token={this.state.token} loggedIn={this.loggedIn} username={this.state.username} settingBooleanForSorting={this.settingBooleanForSorting} items={this.renderItems()} buttonToAddToCartClicked={this.buttonToAddToCartClicked} itemClickedOn={this.itemClickedOn} returnToItemList={this.returnToItemList} selectedToExpand={this.state.selectedToExpand} expandItem={this.state.expandItem}/> }   />
+          <Route exact path="/" render={(renderProps) => <Homepage {...renderProps} loggedIn={this.loggedIn} username={this.state.username} settingBooleanForSorting={this.settingBooleanForSorting} items={this.renderItems()} buttonToAddToCartClicked={this.buttonToAddToCartClicked} itemClickedOn={this.itemClickedOn} returnToItemList={this.returnToItemList} selectedToExpand={this.state.selectedToExpand} expandItem={this.state.expandItem}/> }   />
           <Route exact path="/profile" render={(renderProps) => <Profile {...renderProps} username={this.state.username} usersOrders={this.state.usersOrders} usersEmail={this.state.usersEmail} deleteAccount={this.deleteAccount} loggedIn={this.loggedIn} loggedInUserId={this.state.loggedInUserId} updateEmail={this.updateEmail}/> } />
           </Switch>
         </Router>

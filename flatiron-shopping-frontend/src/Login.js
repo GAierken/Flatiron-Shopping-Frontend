@@ -9,6 +9,7 @@ state= {
 }
 
 enteredLoginCredentials = (event) => {
+ 
     this.setState({
         [event.target.name]: event.target.value
     })
@@ -30,7 +31,7 @@ loginSubmitted=(event)=>{
       })
     }).then(res => res.json())
       .then(data => {
-        console.log(data)
+        
         if (data.errors)
           this.setState({
             errors: data.errors
@@ -45,6 +46,8 @@ loginSubmitted=(event)=>{
 }
 
     render() {
+      
+      
         return(
           <div>
             <br></br>

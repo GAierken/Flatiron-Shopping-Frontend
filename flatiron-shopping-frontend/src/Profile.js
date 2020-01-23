@@ -9,6 +9,7 @@ export default class Profile extends React.Component{
     }
 
     changeEmail=(event)=>{
+        
         this.setState({
             [event.target.name]: event.target.value
         })
@@ -38,6 +39,7 @@ export default class Profile extends React.Component{
     }
 
     render(){
+       console.log('profile props', this.props.usersEmail)
         return( 
         <div>
             {this.props.loggedIn() ? 

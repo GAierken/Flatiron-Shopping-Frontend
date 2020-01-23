@@ -19,11 +19,6 @@ showCartItem= () => {
     </div>
 }
 
-
-
-
-
-
     render() {
         return(
                 this.showCartItem()

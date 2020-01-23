@@ -27,42 +27,26 @@ export default class Cart extends React.Component{
     
     }
 
-    displayOrderHistory=()=> {
-        
-        const orderItems= this.props.usersOrders.map(order=> {
-            return order.items
-        })
-
-        return orderItems.map(item=>{
-            return <div>
-                <p>{item.name}</p>
-                <p>{item.price}</p>
-            </div>
-        })
-    }
-
     render() {
         return (
             <div className="cart-item-container">
                 <br></br>
-                {!this.props.expandItem ?
+                {!this.props.loggedIn() ? <p className="welcome-message">Log in to make a purchase</p> : 
                 <div>
-                <h1 className="shopping-app-h1">Shopping Cart</h1> 
+                    {!this.props.expandItem ?
+                        <div>
+                        <h1 className="shopping-app-h1">Shopping Cart</h1> 
+                        <br></br>
+                        </div> :
+                        <div></div>}
+                {this.chooseAFunction()}
                 <br></br>
-                </div> :
+                {this.props.selectedItems.length > 0 && !this.props.expandItem ?
+                <div className="order-submit-button-div"><button className="order-submit-button" onClick={this.props.submitOrder}>Submit Order</button></div> :
                 <div></div>}
-            {this.chooseAFunction()}
-            <br></br>
-            {this.props.selectedItems.length > 0 && !this.props.expandItem ?
-            <div className="order-submit-button-div"><button className="order-submit-button" onClick={this.props.submitOrder}>Submit Order</button></div> :
-            <div></div>}
-            {!this.props.expandItem ?
-                <div>
-                <h1 className="shopping-app-h1">Order History</h1>
-                <br></br>
-                {this.displayOrderHistory()}
-            </div> :
-            <div></div>}
+                </div>
+                }
+            
             </div>
         )
     }

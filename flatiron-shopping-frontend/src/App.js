@@ -40,27 +40,30 @@ componentDidMount= () => {
   })
 }
 
-  fetchOrderHistory=()=>{fetch(`http://localhost:3000/users/${this.state.loggedInUserId}`)
+ fetchOrderHistory=()=>{fetch(`http://localhost:3000/users/${this.state.loggedInUserId}`, {
+   headers: {
+     "Authorization" : this.state.token
+   }
+ })
   .then(r => r.json())
   .then(user => {
+    // console.log(user)
     this.setState({
       usersOrders: user.orders,
       username: user.username,
       usersEmail: user.email
-      })
+      }) 
     })
 }
 
-setToken = (token, loggedInUserId) => {
+setToken = (token, id) => {
   localStorage.token = token;
-  localStorage.loggedInUserId = loggedInUserId;
+  localStorage.loggedInUserId = id;
 
-  localStorage.token = token;
-  localStorage.loggedInUserId = loggedInUserId;
- 
+
   this.setState({
     token: token,
-    loggedInUserId: loggedInUserId
+    loggedInUserId: id
   })
 }
 
@@ -78,7 +81,7 @@ logOutClick = () => {
 }
 
 loggedIn=()=>{
-  return !!this.state.loggedInUserId
+  return !!this.state.token
 }
 
 buttonToAddToCartClicked= (item) => {
@@ -268,8 +271,10 @@ renderItems= () => {
 }
 
 deleteAccount=()=> {
-  fetch(`http://localhost/3000/users/${this.state.loggedInUserId}`, {
-    method: "DELETE"})
+  
+  fetch(`http://localhost:3000/users/${this.state.loggedInUserId}`, {
+    method: "DELETE"
+  })
     .then(r=>r.json())
     .then(data => {
       return this.logOutClick()
@@ -277,6 +282,7 @@ deleteAccount=()=> {
   }
 
   updateEmail=(email)=>{
+    
     fetch(`http://localhost:3000/users/${this.state.loggedInUserId}`, {
       method: "PATCH",
       headers: {
@@ -289,6 +295,7 @@ deleteAccount=()=> {
     })
     .then(r=>r.json())
     .then(data=>{
+      console.log(data)
       this.setState({
         usersEmail: data.email
       })
@@ -297,6 +304,7 @@ deleteAccount=()=> {
 
 
 render() {
+  console.log('app states', this.state)
   return (
     <div >
       <Router>

@@ -18,7 +18,10 @@ export default class Profile extends React.Component{
     submitNewEmail=(event)=>{
         event.preventDefault();
        this.props.updateEmail({
-              usersEmail: this.state.email
+              email: this.state.email
+          })
+          this.setState({
+              email: ""
           })
     }
 

@@ -186,7 +186,10 @@ body{
     color: darkgray;
     font-size: 1em;
     margin: 1em 
+}
 
+.profile-username:hover{
+color: black;
 }
 
 .order-history{

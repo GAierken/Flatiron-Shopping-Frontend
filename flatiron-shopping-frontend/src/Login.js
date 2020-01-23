@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 export default class Login extends React.Component{
 
 state= {
@@ -16,9 +15,8 @@ enteredLoginCredentials = (event) => {
 }
 
 loginSubmitted=(event)=>{
-    event.preventDefault();
 
-    console.log("clicked");
+    event.preventDefault();
 
     fetch("http://localhost:3000/login", {
       method: "POST",
@@ -39,8 +37,11 @@ loginSubmitted=(event)=>{
         else
           this.props.setToken(data.id)
       })
+      this.setState({
+        username: "",
+        pasword: ""
+      })
 }
-
 
     render() {
         return(
@@ -48,7 +49,8 @@ loginSubmitted=(event)=>{
             <br></br>
             {this.state.errors.map(error => <p> {error} </p>)} 
             <br></br>
-          {this.props.loggedIn() ? <h3 className="shopping-app-h3"> "You are logged in! Go to the Home Page to go shopping." </h3> : 
+            {this.props.loggedIn() ? 
+            <div className="welcome-message">Welcome, {this.props.username}! </div> :
             <div>
                 <h1 className="shopping-app-h1">Login</h1>
                 <form className="form" onSubmit={this.loginSubmitted}>
@@ -59,7 +61,7 @@ loginSubmitted=(event)=>{
                     <input type="submit" value="submit" />
             </form>
             </div>
-          }
+              }
             </div>
         )
     }

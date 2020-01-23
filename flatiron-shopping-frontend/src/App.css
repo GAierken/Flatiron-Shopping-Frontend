@@ -1,5 +1,6 @@
 body{
     background-color: honeydew;
+    margin: 3em;
 }
 
 .item-div{
@@ -153,3 +154,42 @@ body{
     height: 4em;
 }
 
+.welcome-message{
+    font-weight: bold;
+    color: darkgray;
+    font-size: 1.5em;
+    margin: 2em
+}
+
+.delete-account{
+    color: darkgray;
+    font-size: 1em;
+    margin: 1em 
+}
+
+.delete-account:hover{
+    color: black;
+   
+}
+
+.email-address{
+    color: darkgray;
+    font-size: 1em;
+    margin: 1em 
+}
+
+.email-address:hover{
+    color: black;
+}
+
+.profile-username{
+    color: darkgray;
+    font-size: 1em;
+    margin: 1em 
+
+}
+
+.order-history{
+    color: darkgray;
+    margin: 1em;
+}

@@ -19,10 +19,8 @@ export default class SearchBar extends React.Component{
           <option value="diaper">Diaper</option>
           <option value="toys">Toys</option>
           <option value="feeding">Feeding</option>
-          
         </select>
-      </label>
-
+        </label>
             </div>
         )
     }

@@ -28,6 +28,23 @@ state={
   toys: false
 }
 
+logOutClick = () => {
+  localStorage.removeItem("loggedInUserId")
+  localStorage.removeItem("token")
+  this.setState({
+    loggedInUserId: null,
+    token: null,
+    username: "",
+    usersEmail: "",
+    selectedItems: [],
+    usersOrders: []
+  })
+}
+
+loggedIn=()=>{
+  return !!this.state.token
+}
+
 componentDidMount= () => {
   fetch("http://localhost:3000/items")
   .then(r => r.json())
@@ -43,10 +60,22 @@ componentDidMount= () => {
 setToken = (token, loggedInUserId) => {
   localStorage.token = token;
   localStorage.loggedInUserId = loggedInUserId;
-  this.setState({
-    token: token,
-    loggedInUserId: loggedInUserId
-    })
+  fetch(`http://localhost:3000/users/${loggedInUserId}`, {
+    headers: {
+      "Authorization": token
+    }
+        })
+      .then(r => r.json())
+      .then(user => {
+        this.setState({
+          usersOrders: user.orders,
+          username: user.username,
+          usersEmail: user.email,
+          token: token,
+          loggedInUserId: loggedInUserId
+          })
+        })
+
   }
 
   fetchOrderInfo= () => {
@@ -64,23 +93,6 @@ headers: {
       })
     })
   }
-
-logOutClick = () => {
-  localStorage.removeItem("loggedInUserId")
-  localStorage.removeItem("token")
-  this.setState({
-    loggedInUserId: null,
-    token: null,
-    username: "",
-    usersEmail: "",
-    selectedItems: [],
-    usersOrders: []
-  })
-}
-
-loggedIn=()=>{
-  return !!this.state.token
-}
 
 buttonToAddToCartClicked= (item) => {
   
@@ -277,7 +289,7 @@ deleteAccount=()=> {
         "Accept": "application/json"
       },
       body: JSON.stringify({
-        email: email
+        email: email.email
       })
     })
     .then(r=>r.json())
@@ -300,7 +312,7 @@ render() {
           <Route exact path="/login" render={(renderProps) => <Login {...renderProps} fetchOrderInfo={this.fetchOrderInfo} username={this.state.username} usersEmail={this.state.usersEmail} usersOrders={this.state.usersOrders} setToken={this.setToken} loggedIn={this.loggedIn}/>} />
           <Route exact path="/signup" render={(renderProps) => <Signup {...renderProps} loggedIn={this.loggedIn} setToken={this.setToken}/> } /> 
           <Route exact path="/" render={(renderProps) => <Homepage {...renderProps} token={this.state.token} loggedIn={this.loggedIn} username={this.state.username} settingBooleanForSorting={this.settingBooleanForSorting} items={this.renderItems()} buttonToAddToCartClicked={this.buttonToAddToCartClicked} itemClickedOn={this.itemClickedOn} returnToItemList={this.returnToItemList} selectedToExpand={this.state.selectedToExpand} expandItem={this.state.expandItem}/> }   />
-          <Route exact path="/profile" render={(renderProps) => <Profile {...renderProps} username={this.props.username} usersOrders={this.props.usersOrders} usersEmail={this.props.usersEmail} deleteAccount={this.deleteAccount} loggedIn={this.loggedIn} loggedInUserId={this.state.loggedInUserId} updateEmail={this.updateEmail}/> } />
+          <Route exact path="/profile" render={(renderProps) => <Profile {...renderProps} username={this.state.username} usersOrders={this.state.usersOrders} usersEmail={this.state.usersEmail} deleteAccount={this.deleteAccount} loggedIn={this.loggedIn} loggedInUserId={this.state.loggedInUserId} updateEmail={this.updateEmail}/> } />
           </Switch>
         </Router>
         </div>

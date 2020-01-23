@@ -173,6 +173,7 @@ submitOrder=()=> {
                   selectedItems: []
                   })
         }
+       
       })
     })
 
@@ -180,7 +181,7 @@ submitOrder=()=> {
   
     
     
-   
+    alert('Purchased!')
   }
 
   

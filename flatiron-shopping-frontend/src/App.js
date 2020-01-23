@@ -63,21 +63,6 @@ headers: {
     })
   }
 
-//   fetchOrderInfo= () => {
-//     fetch(`http://localhost:3000/users/${this.state.loggedInUserId}`, {
-// headers: {
-//   "Authorization": this.state.token
-// }
-//     })
-//   .then(r => r.json())
-//   .then(user => {
-//     this.setState({
-//       usersOrders: user.orders,
-//       username: user.username,
-//       usersEmail: user.email
-//       })
-//     })
-//   }
 
 logOutClick = () => {
   localStorage.removeItem("loggedInUserId")

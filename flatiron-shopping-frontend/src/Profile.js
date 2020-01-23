@@ -5,28 +5,7 @@ import React from 'react';
 export default class Profile extends React.Component{
 
     state={
-        username: "",
-        usersOrders: [],
-        usersEmail: "",
-    }
-
-    componentDidMount=()=>{
-
-         if (this.props.loggedIn()){
-    fetch(`http://localhost:3000/users/${this.props.loggedInUserId}`, {
-      headers: {
-        "Authorization": this.props.token}
-      })
-  .then(r => r.json())
-  .then(user => {
-      console.log(user)
-    this.setState({
-      usersOrders: user.orders,
-      username: user.username,
-      usersEmail: user.email
-      })
-    })
-  }
+        email: ""
     }
 
     changeEmail=(event)=>{
@@ -37,15 +16,13 @@ export default class Profile extends React.Component{
 
     submitNewEmail=(event)=>{
         event.preventDefault();
-        this.setState({
-            usersEmail: this.state.email
-        })
-        }
-    
+       this.props.updateEmail({
+              usersEmail: this.state.email
+          })
+    }
 
     displayTheOrders=()=> {
-       return this.props.loggedIn() ? 
-         this.state.usersOrders.map(order=> {
+         return this.props.usersOrders.map(order=> {
          return order.items.map(item=> {
             return <div className="order-history">
                 <ul>
@@ -54,7 +31,7 @@ export default class Profile extends React.Component{
                 </ul>
                 </div>
             }) 
-            }) : <div></div>
+            })
     }
 
     render(){
@@ -63,16 +40,16 @@ export default class Profile extends React.Component{
             {this.props.loggedIn() ? 
             <div>
                 <div className="welcome-message">
-                <p> Hello, {this.state.username}!</p>
+                <p> Hello, {this.props.username}!</p>
                 </div>
                 <div>
                 <br></br>
                 <h4>User Information</h4>
-                <p className="profile-username">Username: {this.state.username}</p>
-                <p className="email-address">E-mail address: {this.state.usersEmail}</p>
+                <p className="profile-username">Username: {this.props.username}</p>
+                <p className="email-address">E-mail address: {this.props.usersEmail}</p>
                 <form onSubmit={this.submitNewEmail}>
                     <label className="email-address" htmlFor="email">Change e-mail address: </label>
-                    <input type="text" name="usersEmail" value={this.state.email} placeholder="enter e-mail address" onChange={this.changeEmail}/>
+                    <input type="text" name="email" value={this.state.email} placeholder="enter e-mail address" onChange={this.changeEmail}/>
                     <input type="submit" value="submit" />
                 </form >
                 <br></br>

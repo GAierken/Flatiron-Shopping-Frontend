@@ -39,10 +39,10 @@ componentDidMount= () => {
 
 setToken = (token, id) => {
   localStorage.token = token;
-  localStorage.loggedInUserId = loggedInUserId;
+  localStorage.loggedInUserId = id;
   this.setState({
     token: token,
-    loggedInUserId: loggedInUserId
+    loggedInUserId: id
     })
   }
 
@@ -295,7 +295,7 @@ deleteAccount=()=> {
 
 
 render() {
-  console.log(this.state.token)
+  // console.log(this.state.token)
   return (
     <div >
       <Router>

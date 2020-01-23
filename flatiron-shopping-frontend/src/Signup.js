@@ -70,7 +70,7 @@ export default class Signup extends React.Component{
         </form>
         </div>
         :
-            <p>You are logged in!</p> }
+            <p className="welcome-message">You are logged in!</p> }
         </div>
         )
     }

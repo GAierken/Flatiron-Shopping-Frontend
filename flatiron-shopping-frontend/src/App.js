@@ -33,30 +33,30 @@ componentDidMount= () => {
       items: itemsArray,
       token: localStorage.token,
       loggedInUserId: localStorage.loggedInUserId
-    })
+    }, this.fetchOrderHistory)
   })
-
-  // if (this.state.loggedInUserId) {
-  //   fetch(`http://localhost:3000/users/${ this.state.loggedInUserId }`, {
-  //     headers: {
-  //       "Authorization": this.state.token
-  //     }
-  //   })
-  //   .then(res => res.json())
-  //   .then(user => this.setState({
-  //     usersOrders: user.orders
-  //   }))
-  // }
-  // I don't know whether this second fetch will be able to happen here.
 }
 
-setToken = (loggedInUserId) => {
 
-  // localStorage.token = token;
+  fetchOrderHistory=()=>{fetch(`http://localhost:3000/users/${this.state.loggedInUserId}`)
+  .then(r => r.json())
+  .then(user => {
+    this.setState({
+      usersOrders: user.orders
+      })
+    })
+  }
+
+
+setToken = (token, loggedInUserId) => {
+  localStorage.token = token;
+  localStorage.loggedInUserId = loggedInUserId;
+
+  localStorage.token = token;
   localStorage.loggedInUserId = loggedInUserId;
  
   this.setState({
-    // token: token,
+    token: token,
     loggedInUserId: loggedInUserId
   })
 }
@@ -75,8 +75,6 @@ loggedIn=()=>{
 }
 
 buttonToAddToCartClicked= (item) => {
-
-  // item.quantity +=1;
   
   this.setState({
     selectedItems: [...this.state.selectedItems, item]
@@ -85,23 +83,21 @@ buttonToAddToCartClicked= (item) => {
 
 buttonToRemoveFromCart= (item) => {
 
-  // item.quantity-=1;
-
-  // if (item.quantity=== 0)
-
-  // this won't work, because we don't want to have quantity as an attribute of an item
-
-  let arrayWithItemRemoved= this.state.selectedItems.filter(data => {
-    return data !== item
+  const arrayOfItems= this.state.selectedItems.filter(data => {
+    return data === item
   })
+
+  arrayOfItems.shift()
+
+  let itemsWithoutArrayOfItems= this.state.selectedItems.filter(data=>{
+    return data !==item
+  })
+
+  const mergedArray= [...itemsWithoutArrayOfItems, ...arrayOfItems]
 
   this.setState({
-    selectedItems: arrayWithItemRemoved
+    selectedItems: mergedArray
   })
-
-  // This has some strange behavior when there are multiples of the same item in a cart.
-  // There should be an input field for quantity and functions to handle having more than one
-  // of a particular item in a cart.
 }
 
 itemClickedOn= (item) => {
@@ -118,12 +114,12 @@ returnToItemList= () => {
   })
 }
 
-submitOrder=()=>{
+submitOrder=()=> {
 
   const orderItemsIds= this.state.selectedItems.map(selectedItem=>{
     return selectedItem.id
-  })
-  
+    })
+
   fetch("http://localhost:3000/orders", {
     method: "POST",
     headers: {
@@ -131,44 +127,45 @@ submitOrder=()=>{
       "Accept": "application/json"
     },
     body: JSON.stringify({
-      user_id: this.state.loggedInUserId
-      // items: this.state.selectedItems
+      user_id: this.state.loggedInUserId,
     })
   })
   .then(r=> r.json())
   .then(response => {
-    // console.log(orderItemsIds)
-    orderItemsIds.map((id) => {
-     
-      fetch('http://localhost:3000/jointables', {
-      method: 'POST',
-      headers:{
-        'content-type': 'application/json',
-        'accept': 'application/json'      
-      },
-      body: JSON.stringify({
-        item_id: id,
-        order_id: response.id
-      
+    return orderItemsIds.map(id=> {
+      return fetch("http://localhost:3000/jointables", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          item_id: id,
+          order_id: response.id
+        })
       })
-    })
-    .then(r => r.json())
-    .then(join => {
-      if(join.order.items.length === orderItemsIds.length){
-      console.log(this.state.loggedInUserId)}
+      .then(r=> r.json())
+      .then(join => {
+        if(join.order.items.length === orderItemsIds.length) {
+              this.setState({
+                  selectedItems: []
+                  })
+        }
+      })
     })
 
     })
   
     
-    // this.setState({
-    //   selectedItems: []
-    // })
+    
    
-  })
+  }
 
   
-}
+
+
+    
+
 
 settingBooleanForSorting= (event) => {
   // console.log(event.target.value)

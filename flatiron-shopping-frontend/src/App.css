@@ -115,7 +115,7 @@ body{
 
 .order-submit-button{
     width: 8em;
-    height: 5em;
+    height: 4em;
     font-weight: bold;
     text-align: center;
     font-size: 1em;
@@ -144,5 +144,12 @@ body{
 
 .search-bar{
     text-align: center;
+}
+
+.return-to-cart-button{
+    font-weight: bold;
+    font-size: .75em;
+    width: 9em;
+    height: 4em;
 }
 

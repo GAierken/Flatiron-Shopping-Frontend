@@ -29,24 +29,17 @@ loginSubmitted=(event)=>{
       body: JSON.stringify({
         username: this.state.username,
         password_digest: this.state.password
-
-       
-
       })
     }).then(res => res.json())
       .then(data => {
+        console.log(data)
         if (data.errors)
           this.setState({
             errors: data.errors
           })
         else
-          this.props.setToken(data.id)
+          this.props.setToken(data.token, data.id)
       })
-      // this.setState({
-      //   username: "",
-      //   password: ""
-
-      // })
 }
 
 
@@ -64,7 +57,7 @@ loginSubmitted=(event)=>{
                 <form className="form" onSubmit={this.loginSubmitted}>
                     <input type="text" name= "username" value={this.state.username} placeholder="username" onChange={this.enteredLoginCredentials}/>
                     <br></br>
-                    <input type="text" name= "password" value={this.state.password} placeholder="password" onChange={this.enteredLoginCredentials}/>
+                    <input type="password" name= "password" value={this.state.password} placeholder="password" onChange={this.enteredLoginCredentials}/>
                     <br></br>
                     <input type="submit" value="submit" />
             </form>

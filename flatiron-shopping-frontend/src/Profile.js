@@ -17,9 +17,7 @@ export default class Profile extends React.Component{
 
     submitNewEmail=(event)=>{
         event.preventDefault();
-       this.props.updateEmail({
-              email: this.state.email
-          })
+       this.props.updateEmail(this.state.email)
           this.setState({
               email: ""
           })
@@ -39,7 +37,7 @@ export default class Profile extends React.Component{
     }
 
     render(){
-       console.log('profile props', this.props.usersEmail)
+       
         return( 
         <div>
             {this.props.loggedIn() ? 

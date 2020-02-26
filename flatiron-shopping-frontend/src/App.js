@@ -281,6 +281,7 @@ deleteAccount=()=> {
   }
 
   updateEmail=(email)=>{
+   
     fetch(`http://localhost:3000/users/${this.state.loggedInUserId}`, {
       method: "PATCH",
       headers: {
@@ -289,13 +290,13 @@ deleteAccount=()=> {
       },
       body: JSON.stringify({
 
-        email: email.usersEmail
+        email: email
 
       })
     })
     .then(r=>r.json())
     .then(data=>{
-      
+      console.log(data)
       this.setState({
         usersEmail: data.email
       })

@@ -53,7 +53,7 @@ headers: {
     })
   .then(r => r.json())
   .then(user => {
-    console.log('fetch', user)
+    
     this.setState({
       usersOrders: user.orders,
       username: user.username,
@@ -271,11 +271,14 @@ renderItems= () => {
 }
 
 deleteAccount=()=> {
+  
   fetch(`http://localhost:3000/users/${this.state.loggedInUserId}`, {
-    method: "DELETE"})
+    method: "DELETE"
+  })
     .then(r=>r.json())
     .then(data => {
-      return this.logOutClick()
+      
+      this.logOutClick()
     })
     alert('Deleted!')
   }
@@ -296,7 +299,7 @@ deleteAccount=()=> {
     })
     .then(r=>r.json())
     .then(data=>{
-      console.log(data)
+     
       this.setState({
         usersEmail: data.email
       })
@@ -306,7 +309,6 @@ deleteAccount=()=> {
 
 
 render() {
-  console.log('app states', this.state.usersEmail)
   return (
     <div >
       <Router>

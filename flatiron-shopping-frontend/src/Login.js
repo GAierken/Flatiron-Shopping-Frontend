@@ -32,12 +32,16 @@ loginSubmitted=(event)=>{
     }).then(res => res.json())
       .then(data => {
         
-        if (data.errors)
+        if (data.errors){
+          
           this.setState({
             errors: data.errors
           })
-        else
+        }
+        else{
           this.props.setToken(data.token, data.id)
+        }
+          
       })
       this.setState({
         username: "",

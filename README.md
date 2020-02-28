@@ -21,4 +21,4 @@ React, CSS, HTML
 [Demo Video](https://www.youtube.com/watch?v=7cNyoHjJjiw&feature=youtu.be)
 
 
-![alt text](https://github.com/GAierken/Therappoint_frontend/raw/master/therappoint_frontend/Therappoint.gif "Therappoint")
+![alt text](https://github.com/GAierken/raw/master/Flatiron-Shopping-Frontend/Shopping.gif "Flatiron Shopping")
